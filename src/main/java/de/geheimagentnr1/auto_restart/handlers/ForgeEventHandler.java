@@ -11,7 +11,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.event.server.ServerStoppedEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.server.ServerLifecycleHooks;
@@ -59,31 +58,17 @@ public class ForgeEventHandler {
 		}
 	}
 	
-	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	@SubscribeEvent
 	public static void handleServerStoppedEvent( ServerStoppedEvent event ) {
-
-		System.out.println("asdasdsadsadasdasdsad");
 		
 		if( ServerRestarter.shouldDoRestart() ) {
-			System.out.println("123");
-
 			ServerRestarter.restartServer();
-			System.out.println("456");
-
 		} else {
-			System.out.println("nm1");
-
 			if( event.getServer().isRunning() ) {
-				System.out.println("nm132");
-
 				if( ServerConfig.shouldAutoRestartOnCrash() ) {
-					System.out.println("2367");
-
 					ServerRestarter.restartServer();
 				}
 			} else {
-				System.out.println("99999");
-
 				ServerRestarter.createStopFile();
 			}
 		}
